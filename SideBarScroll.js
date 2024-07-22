@@ -1,12 +1,18 @@
-mport React, { useState } from 'react';
+// pages/index.js
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import styled, { createGlobalStyle } from 'styled-components';
 
 export default function Home() {
-  const [items, setItems] = useState([]);
+  const [leftItems, setLeftItems] = useState([]);
+  const [rightItems, setRightItems] = useState([]);
 
-  const handleAddClick = () => {
-    setItems([...items, `Item ${items.length + 1}`]);
+  const handleLeftAddClick = () => {
+    setLeftItems([...leftItems, `Item ${leftItems.length + 1}`]);
+  };
+
+  const handleRightAddClick = () => {
+    setRightItems([...rightItems, `Item ${rightItems.length + 1}`]);
   };
 
   return (
@@ -19,11 +25,11 @@ export default function Home() {
             <SidebarTitle>Sidebar Title 1</SidebarTitle>
             <SidebarTitle>Sidebar Title 2</SidebarTitle>
             <Rectangle>
-              <Button onClick={handleAddClick}>Add</Button>
+              <Button onClick={handleLeftAddClick}>Add</Button>
             </Rectangle>
           </SidebarFixed>
           <ScrollableContainer>
-            {items.map((item, index) => (
+            {leftItems.map((item, index) => (
               <Item key={index}>{item}</Item>
             ))}
           </ScrollableContainer>
@@ -32,6 +38,20 @@ export default function Home() {
           <SectionTitle>Main Content</SectionTitle>
           <Paragraph>Welcome to the Scrollables project! Here you can learn about different types of scrollable elements.</Paragraph>
         </Content>
+        <Sidebar>
+          <SidebarFixed>
+            <SidebarTitle>Sidebar Title 1</SidebarTitle>
+            <SidebarTitle>Sidebar Title 2</SidebarTitle>
+            <Rectangle>
+              <Button onClick={handleRightAddClick}>Add</Button>
+            </Rectangle>
+          </SidebarFixed>
+          <ScrollableContainer>
+            {rightItems.map((item, index) => (
+              <Item key={index}>{item}</Item>
+            ))}
+          </ScrollableContainer>
+        </Sidebar>
       </Main>
     </Container>
   );
@@ -84,12 +104,13 @@ const ScrollableContainer = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 3;
+  flex: 2;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin: 0 20px;
 `;
 
 const SectionTitle = styled.h2`
